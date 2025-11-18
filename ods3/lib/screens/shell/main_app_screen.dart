@@ -2,33 +2,28 @@ import 'package:flutter/material.dart';
 import '../home/home_screen.dart';
 import '../meds/medicamentos_screen.dart';
 import '../goals/metas_screen.dart';
-import '../help/teleorientacao_screen.dart';
-
 
 class MainAppScreen extends StatefulWidget {
+  const MainAppScreen({super.key});
+
   @override
   _MainAppScreenState createState() => _MainAppScreenState();
 }
 
-
 class _MainAppScreenState extends State<MainAppScreen> {
   int _currentIndex = 0;
-
 
   final List<Widget> _screens = [
     HomeScreen(),
     MedicamentosScreen(),
     MetasScreen(),
-    TeleorientacaoScreen(),
   ];
-
 
   void _onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +45,6 @@ class _MainAppScreenState extends State<MainAppScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle_outline),
             label: 'Metas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.support_agent),
-            label: 'Ajuda',
           ),
         ],
       ),

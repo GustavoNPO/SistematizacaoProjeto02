@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class MedicamentosScreen extends StatelessWidget {
   final String? userId = FirebaseAuth.instance.currentUser?.uid;
 
+  MedicamentosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +16,14 @@ class MedicamentosScreen extends StatelessWidget {
       );
     }
 
-
-    final CollectionReference medicamentosCollection = FirebaseFirestore.instance
+    final CollectionReference medicamentosCollection = FirebaseFirestore
+        .instance
         .collection('users')
         .doc(userId)
         .collection('medications');
 
-
     return Scaffold(
       appBar: AppBar(title: Text('Meus Medicamentos')),
-
-
       body: StreamBuilder<QuerySnapshot>(
         stream: medicamentosCollection.snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -34,11 +31,9 @@ class MedicamentosScreen extends StatelessWidget {
             return Center(child: Text('Erro ao carregar medicamentos.'));
           }
 
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
-
 
           if (snapshot.data!.docs.isEmpty) {
             return Center(
@@ -50,32 +45,29 @@ class MedicamentosScreen extends StatelessWidget {
             );
           }
 
-
           return ListView(
             padding: EdgeInsets.all(8.0),
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
 
-
               return Card(
                 elevation: 3.0,
                 margin: EdgeInsets.symmetric(vertical: 6.0),
                 child: ListTile(
+                  leading: Icon(Icons.medication_outlined, color: Theme.of(context).primaryColor),
                   title: Text(data['nome'] ?? 'Nome não informado',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   subtitle: Text(data['dosagem'] ?? 'Dosagem não informada',
                       style: TextStyle(fontSize: 16)),
-                  trailing: Icon(Icons.medical_services, color: Colors.green),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16),
                 ),
               );
             }).toList(),
           );
         },
       ),
-
-
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
         label: Text('Adicionar'),
@@ -86,5 +78,3 @@ class MedicamentosScreen extends StatelessWidget {
     );
   }
 }
-
-

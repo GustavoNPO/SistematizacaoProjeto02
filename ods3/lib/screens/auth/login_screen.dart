@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-
 class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
-
 
   Future<void> _signInAnonymously() async {
     setState(() => _isLoading = true);
@@ -20,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.of(context).pushReplacementNamed('/app');
       }
     } catch (e) {
-      print("Erro no login anônimo: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Erro ao tentar login: $e')),
@@ -33,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,16 +41,27 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Tela de Login', style: Theme.of(context).textTheme.titleLarge),
+              Text('Bem-vindo ao CuidarTech',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall), // Atualizado de titleLarge
+              SizedBox(height: 8),
+              Text('Seu assistente de saúde pessoal',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium),
               SizedBox(height: 40),
-
-
               if (_isLoading)
                 CircularProgressIndicator()
               else
-                ElevatedButton(
+                ElevatedButton.icon(
+                  icon: Icon(Icons.person),
+                  label: Text('Entrar Anônimo (Teste)'),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    textStyle: TextStyle(fontSize: 16),
+                  ),
                   onPressed: _signInAnonymously,
-                  child: Text('Entrar Anônimo (Teste)'),
                 ),
             ],
           ),
