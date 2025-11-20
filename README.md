@@ -24,7 +24,7 @@ Requisitos:
     Android: Pelo menos Android 6.0 (Marshmallow) ou Android 7.0 (Nougat). Versões mais recentes (como o Android 10+) são sempre preferíveis
     iOS:  iOS 12 ou iOS 13.
 
-![alt text](Inicio.jpg)
-![alt text](novomedicamento.jpg)
-![alt text](adicionar.jpg)
-![alt text](adicionar2.jpg)
+![alt text](screenshots/Inicio.jpg)
+![alt text](screenshots/novomedicamento.jpg)
+![alt text](screenshots/adicionar.jpg)
+![alt text](screenshots/adicionar2.jpg)
